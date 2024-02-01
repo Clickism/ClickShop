@@ -6,7 +6,7 @@
 
     <groupId>me.clickism</groupId>
     <artifactId>ClickShop</artifactId>
-    <version>0.1</version>
+    <version>0.1.01</version>
     <packaging>jar</packaging>
 
     <name>ClickShop</name>

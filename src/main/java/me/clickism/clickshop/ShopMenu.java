@@ -1,5 +1,6 @@
 package me.clickism.clickshop;
 
+import me.clickism.clickshop.LocalizationManager;
 import me.clickism.clickshop.events.InteractEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +20,9 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ShopMenu {
+    private LocalizationManager localizationManager;
+    private FileConfiguration langConfig;
+
     public static ItemStack getPriceButton() {
         return priceButton;
     }
@@ -207,6 +212,9 @@ public class ShopMenu {
     private static ClickShop plugin;
 
     public static void setupInventories() {
+        LocalizationManager localizationManager = new LocalizationManager();
+        localizationManager.setup();
+        FileConfiguration langConfig = localizationManager.getLangConfig();
 
         ItemStack blank = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
         ItemMeta blankMeta = blank.getItemMeta();
@@ -220,159 +228,159 @@ public class ShopMenu {
         blankProduct.setItemMeta(blankProductMeta);
         blankProductButton = blankProduct;
 
-        ItemStack price = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+        ItemStack price = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE); //Re
         ItemMeta priceMeta = price.getItemMeta();
-        priceMeta.setDisplayName(ChatColor.BOLD + "PRICE");
-        priceMeta.setLore(Arrays.asList(ChatColor.GRAY + "Put your price for the product you want to sell here."));
+        priceMeta.setDisplayName(ChatColor.BOLD + langConfig.getString("price.title"));
+        priceMeta.setLore(Arrays.asList(ChatColor.GRAY + langConfig.getString("price.lore")));
         price.setItemMeta(priceMeta);
         priceButton = price;
-
-        ItemStack product = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+        
+        ItemStack product = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE); //Re
         ItemMeta productMeta = product.getItemMeta();
-        productMeta.setDisplayName(ChatColor.BOLD + "PRODUCT");
-        productMeta.setLore(Arrays.asList(ChatColor.GRAY + "Put the product(s) you want to sell here."));
+        productMeta.setDisplayName(ChatColor.BOLD + langConfig.getString("product.title"));
+        productMeta.setLore(Arrays.asList(ChatColor.GRAY + langConfig.getString("product.lore")));
         product.setItemMeta(productMeta);
         productButton = product;
 
-        ItemStack createShopGlass = new ItemStack(Material.ANVIL);
+        ItemStack createShopGlass = new ItemStack(Material.ANVIL); //Re
         ItemMeta createShopGlassMeta = createShopGlass.getItemMeta();
-        createShopGlassMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "CREATE SHOP");
-        createShopGlassMeta.setLore(Arrays.asList(ChatColor.DARK_GREEN + "Click to create a shop."));
+        createShopGlassMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + langConfig.getString("createShop.title"));
+        createShopGlassMeta.setLore(Arrays.asList(ChatColor.DARK_GREEN + langConfig.getString("createShop.lore")));
         createShopGlass.setItemMeta(createShopGlassMeta);
         createShopButton = createShopGlass;
 
-        ItemStack editConfirm = new ItemStack(Material.ANVIL);
+        ItemStack editConfirm = new ItemStack(Material.ANVIL); //Re
         ItemMeta editConfirmMeta = editConfirm.getItemMeta();
-        editConfirmMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "SAVE CHANGES");
-        editConfirmMeta.setLore(Arrays.asList(ChatColor.DARK_GREEN + "Click to save changes made to the price and product(s)."));
+        editConfirmMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + langConfig.getString("editConfirm.title"));
+        editConfirmMeta.setLore(Arrays.asList(ChatColor.DARK_GREEN + langConfig.getString("editConfirm.lore")));
         editConfirm.setItemMeta(editConfirmMeta);
         editConfirmButton = editConfirm;
 
-        ItemStack buyItem = new ItemStack(Material.LIME_CONCRETE_POWDER);
+        ItemStack buyItem = new ItemStack(Material.LIME_CONCRETE_POWDER); //Re
         ItemMeta buyMeta = buyItem.getItemMeta();
-        buyMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "BUY");
-        buyMeta.setLore(Arrays.asList(ChatColor.DARK_GREEN + "Click to buy this product for the specified price"));
+        buyMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + langConfig.getString("buyItem.title"));
+        buyMeta.setLore(Arrays.asList(ChatColor.DARK_GREEN + langConfig.getString("buyItem.lore")));
         buyItem.setItemMeta(buyMeta);
         buyButton = buyItem;
 
-        ItemStack showBuy = new ItemStack(Material.ENDER_EYE);
+        ItemStack showBuy = new ItemStack(Material.ENDER_EYE); //Re
         ItemMeta showBuyMeta = showBuy.getItemMeta();
-        showBuyMeta.setDisplayName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "CHANGE PRICE AND PRODUCTS");
-        showBuyMeta.setLore(Arrays.asList(ChatColor.GREEN + "Click to change or see the price and product(s)", ChatColor.GREEN + "you're selling at this shop."));
+        showBuyMeta.setDisplayName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + langConfig.getString("showBuy.title"));
+        showBuyMeta.setLore(Arrays.asList(ChatColor.GREEN + langConfig.getString("showBuy.lore1"), ChatColor.GREEN + langConfig.getString("showBuy.lore2")));
         showBuy.setItemMeta(showBuyMeta);
         showBuyButton = showBuy;
 
-        ItemStack delete = new ItemStack(Material.BARRIER);
+        ItemStack delete = new ItemStack(Material.BARRIER); //Re
         ItemMeta deleteMeta = delete.getItemMeta();
-        deleteMeta.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + "DELETE SHOP");
-        deleteMeta.setLore(Arrays.asList(ChatColor.RED + "Click to delete shop."));
+        deleteMeta.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + langConfig.getString("delete.title"));
+        deleteMeta.setLore(Arrays.asList(ChatColor.RED + langConfig.getString("delete.lore")));
         delete.setItemMeta(deleteMeta);
         deleteButton = delete;
 
-        ItemStack noStock = new ItemStack(Material.RED_CONCRETE_POWDER);
+        ItemStack noStock = new ItemStack(Material.RED_CONCRETE_POWDER); //Re
         ItemMeta noStockMeta = noStock.getItemMeta();
-        noStockMeta.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + "OUT OF STOCK");
-        noStockMeta.setLore(Arrays.asList(ChatColor.RED + "This shop is out of stock."));
+        noStockMeta.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + langConfig.getString("noStock.title"));
+        noStockMeta.setLore(Arrays.asList(ChatColor.RED + langConfig.getString("noStock.lore")));
         noStock.setItemMeta(noStockMeta);
         noStockButton = noStock;
 
-        ItemStack stockConnect = new ItemStack(Material.HOPPER);
+        ItemStack stockConnect = new ItemStack(Material.HOPPER); //Re
         ItemMeta stockConnectMeta = stockConnect.getItemMeta();
-        stockConnectMeta.setDisplayName(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "CONNECT STOCKPILE");
-        stockConnectMeta.setLore(Arrays.asList(ChatColor.GRAY + "Click to connect a stockpile to the shop.", " ", ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "Not: " + ChatColor.GRAY + "" + ChatColor.ITALIC + "You can click on an empty spot", ChatColor.GRAY + "" + ChatColor.ITALIC + "to cancel the stockpile selection."));
+        stockConnectMeta.setDisplayName(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + langConfig.getString("stockConnect.title"));
+        stockConnectMeta.setLore(Arrays.asList(ChatColor.GRAY + langConfig.getString("stockConnect.lore1"), " ", ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + langConfig.getString("stockConnect.note"), ChatColor.GRAY + "" + ChatColor.ITALIC + langConfig.getString("stockConnect.lore2")));
         stockConnect.setItemMeta(stockConnectMeta);
         stockConnectShopButton= stockConnect;
 
-        ItemStack pileConnect = new ItemStack(Material.HOPPER);
+        ItemStack pileConnect = new ItemStack(Material.HOPPER); //Re
         ItemMeta pileConnectMeta = pileConnect.getItemMeta();
-        pileConnectMeta.setDisplayName(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "CONNECT SHOP");
-        pileConnectMeta.setLore(Arrays.asList(ChatColor.GRAY + "Click to connect a shop to the earnings pile.", " ", ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "Not: " + ChatColor.GRAY + "" + ChatColor.ITALIC + "You can click on an empty spot", ChatColor.GRAY + "" + ChatColor.ITALIC + "to cancel the earnings pile selection."));
+        pileConnectMeta.setDisplayName(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + langConfig.getString("pileConnect.title"));
+        pileConnectMeta.setLore(Arrays.asList(ChatColor.GRAY + langConfig.getString("pileConnect.lore1"), " ", ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + langConfig.getString("pileConnect.note"), ChatColor.GRAY + "" + ChatColor.ITALIC + langConfig.getString("pileConnect.lore2")));
         pileConnect.setItemMeta(pileConnectMeta);
         pileConnectButton = pileConnect;
-
-        ItemStack stockSelf = new ItemStack(Material.CHEST);
+        
+        ItemStack stockSelf = new ItemStack(Material.CHEST); //Re
         ItemMeta stockSelfMeta = stockSelf.getItemMeta();
-        stockSelfMeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "STOCK CHEST");
-        stockSelfMeta.setLore(Arrays.asList(ChatColor.YELLOW + "Click to stock the shop's internal storage.", " ", ChatColor.GOLD + "" + ChatColor.ITALIC + "Not: " + ChatColor.YELLOW + "" + ChatColor.ITALIC + "You can use this if you don't", ChatColor.YELLOW + "" + ChatColor.ITALIC + "want to add a stockpile"));
+        stockSelfMeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + langConfig.getString("stockSelf.title"));
+        stockSelfMeta.setLore(Arrays.asList(ChatColor.YELLOW + langConfig.getString("stockSelf.lore"), " ", ChatColor.GOLD + "" + ChatColor.ITALIC + langConfig.getString("stockSelf.note"), ChatColor.YELLOW + "" + ChatColor.ITALIC + langConfig.getString("stockSelf.lore2")));
         stockSelf.setItemMeta(stockSelfMeta);
         stockSelfShopButton= stockSelf;
 
-        ItemStack earningsCollect = new ItemStack(Material.DIAMOND);
+        ItemStack earningsCollect = new ItemStack(Material.DIAMOND); //Re
         ItemMeta earningsCollectMeta = earningsCollect.getItemMeta();
-        earningsCollectMeta.setDisplayName(ChatColor.BLUE + "" + ChatColor.BOLD + "COLLECT EARNINGS");
-        earningsCollectMeta.setLore(Arrays.asList(ChatColor.AQUA + "Click to collect your earnings at this shop."));
+        earningsCollectMeta.setDisplayName(ChatColor.BLUE + "" + ChatColor.BOLD + langConfig.getString("earningsCollect.title"));
+        earningsCollectMeta.setLore(Arrays.asList(ChatColor.AQUA + langConfig.getString("earningsCollect.lore")));
         earningsCollect.setItemMeta(earningsCollectMeta);
         collectEarningsButton= earningsCollect;
-
-        ItemStack earningsPileCollect = new ItemStack(Material.DIAMOND);
+        
+        ItemStack earningsPileCollect = new ItemStack(Material.DIAMOND); //Re
         ItemMeta earningsPileCollectMeta = earningsPileCollect.getItemMeta();
-        earningsPileCollectMeta.setDisplayName(ChatColor.BLUE + "" + ChatColor.BOLD + "COLLECT EARNINGS");
-        earningsPileCollectMeta.setLore(Arrays.asList(ChatColor.AQUA + "Click to collect your earnings from all the connected shops."));
+        earningsPileCollectMeta.setDisplayName(ChatColor.BLUE + "" + ChatColor.BOLD + langConfig.getString("earningsPileCollect.title"));
+        earningsPileCollectMeta.setLore(Arrays.asList(ChatColor.AQUA + langConfig.getString("earningsPileCollect.lore")));
         earningsPileCollect.setItemMeta(earningsPileCollectMeta);
         collectEarningsPileButton= earningsPileCollect;
 
-        ItemStack connectEarnings = new ItemStack(Material.ENDER_CHEST);
+        ItemStack connectEarnings = new ItemStack(Material.ENDER_CHEST); //Re
         ItemMeta connectEarningsMeta = connectEarnings.getItemMeta();
-        connectEarningsMeta.setDisplayName(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "CONNECT EARNINGS PILE");
-        connectEarningsMeta.setLore(Arrays.asList(ChatColor.LIGHT_PURPLE + "Click to connect an earnings pile to collect earnings", ChatColor.LIGHT_PURPLE + "from multiple shops and right click on an Ender Chest.", " ", ChatColor.DARK_PURPLE + "" + ChatColor.ITALIC + "Not: " + ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + "You can shift + right click to access", ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + "the earnings pile"));
+        connectEarningsMeta.setDisplayName(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + langConfig.getString("connectEarnings.title"));
+        connectEarningsMeta.setLore(Arrays.asList(ChatColor.LIGHT_PURPLE + langConfig.getString("connectEarnings.lore1"), ChatColor.LIGHT_PURPLE + langConfig.getString("connectEarnings.lore2"), " ", ChatColor.DARK_PURPLE + "" + ChatColor.ITALIC + langConfig.getString("connectEarnings.note"), ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + langConfig.getString("connectEarnings.lore3"), ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + langConfig.getString("connectEarnings.lore4")));
         connectEarnings.setItemMeta(connectEarningsMeta);
         connectEarningsButton = connectEarnings;
-
-        ItemStack changeStyle = new ItemStack(Material.BRUSH);
+        
+        ItemStack changeStyle = new ItemStack(Material.BRUSH); //Re
         ItemMeta changeStyleMeta = changeStyle.getItemMeta();
-        changeStyleMeta.setDisplayName(Utils.colorize("&c&lC&6&lU&e&lS&a&lT&3&lO&9&lM&c&lI&6&lZ&e&lE &3&lS&9&lH&c&lO&6&lP"));
-        changeStyleMeta.setLore(Arrays.asList(ChatColor.DARK_GRAY + "Click to customize the shop."));
+        changeStyleMeta.setDisplayName(Utils.colorize(langConfig.getString("changeStyle.title")));
+        changeStyleMeta.setLore(Arrays.asList(ChatColor.DARK_GRAY + langConfig.getString("changeStyle.lore")));
         changeStyle.setItemMeta(changeStyleMeta);
         changeStyleShopButton= changeStyle;
 
         //
 
-        ItemStack changeShopColor = new ItemStack(Material.BLUE_DYE);
+        ItemStack changeShopColor = new ItemStack(Material.BLUE_DYE); //Re
         ItemMeta changeShopColorMeta = changeShopColor.getItemMeta();
-        changeShopColorMeta.setDisplayName(Utils.colorize("&c&lC&6&lH&e&lA&a&lN&3&lG&9&lE &6&lC&e&lO&a&lL&3&lO&9&lR"));
-        changeShopColorMeta.setLore(Arrays.asList(ChatColor.DARK_GRAY + "Click to change the background color."));
+        changeShopColorMeta.setDisplayName(Utils.colorize(langConfig.getString("changeShopColor.title")));
+        changeShopColorMeta.setLore(Arrays.asList(ChatColor.DARK_GRAY + langConfig.getString("changeShopColor.lore")));
         changeShopColor.setItemMeta(changeShopColorMeta);
         changeShopColorButton = changeShopColor;
-
-        ItemStack changeChestBlock = new ItemStack(Material.CHEST);
+        
+        ItemStack changeChestBlock = new ItemStack(Material.CHEST); //Re
         ItemMeta changeChestBlockMeta = changeChestBlock.getItemMeta();
-        changeChestBlockMeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "CHANGE SHOP BLOCK");
-        changeChestBlockMeta.setLore(Arrays.asList(ChatColor.YELLOW + "Put the block you want to change the shop block to here."));
+        changeChestBlockMeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + langConfig.getString("changeChestBlock.title"));
+        changeChestBlockMeta.setLore(Arrays.asList(ChatColor.YELLOW + langConfig.getString("changeChestBlock.lore")));
         changeChestBlock.setItemMeta(changeChestBlockMeta);
         changeChestBlockButton = changeChestBlock;
 
-        ItemStack glassDisplay = new ItemStack(Material.GLASS);
+        ItemStack glassDisplay = new ItemStack(Material.GLASS); //Re
         ItemMeta glassDisplayMeta = glassDisplay.getItemMeta();
-        glassDisplayMeta.setDisplayName(Utils.colorize("&r&lGLASS DISPLAY &6&l// &r&lCHANGE GLASS COLOR"));
-        glassDisplayMeta.setLore(Arrays.asList(ChatColor.GRAY + "Click with an empty hand to create a glass display or put", ChatColor.GRAY + "the colored glass block you want here to change the glass color."));
+        glassDisplayMeta.setDisplayName(Utils.colorize(langConfig.getString("glassDisplay.title")));
+        glassDisplayMeta.setLore(Arrays.asList(ChatColor.GRAY + langConfig.getString("glassDisplay.lore1"), ChatColor.GRAY + langConfig.getString("glassDisplay.lore2")));
         glassDisplay.setItemMeta(glassDisplayMeta);
         glassDisplayButton = glassDisplay;
-
-        ItemStack glassDisplayBase = new ItemStack(Material.STRIPPED_OAK_WOOD);
+        
+        ItemStack glassDisplayBase = new ItemStack(Material.STRIPPED_OAK_WOOD); //Re
         ItemMeta glassDisplayBaseMeta = glassDisplayBase.getItemMeta();
-        glassDisplayBaseMeta.setDisplayName(Utils.colorize("&r&lGLASS DISPLAY &6&l// &r&lCHANGE BASE"));
-        glassDisplayBaseMeta.setLore(Arrays.asList(ChatColor.GRAY + "Click with an empty hand to create a glass display or", ChatColor.GRAY + "put the block you want here to change the display base."));
+        glassDisplayBaseMeta.setDisplayName(Utils.colorize(langConfig.getString("glassDisplayBase.title")));
+        glassDisplayBaseMeta.setLore(Arrays.asList(ChatColor.GRAY + langConfig.getString("glassDisplayBase.lore1"), ChatColor.GRAY + langConfig.getString("glassDisplayBase.lore2")));
         glassDisplayBase.setItemMeta(glassDisplayBaseMeta);
         glassDisplayBaseButton = glassDisplayBase;
 
-        ItemStack frameDisplay = new ItemStack(Material.PAINTING);
+        ItemStack frameDisplay = new ItemStack(Material.PAINTING); //Re
         ItemMeta frameDisplayMeta = frameDisplay.getItemMeta();
-        frameDisplayMeta.setDisplayName(Utils.colorize("&r&e&lFRAME DISPLAY &6&l// &r&e&lADD OUTER FRAME"));
-        frameDisplayMeta.setLore(Arrays.asList(ChatColor.GRAY + "Click with an empty hand to create a frame display or put", ChatColor.GRAY + "the block you want here to add an outer frame."));
+        frameDisplayMeta.setDisplayName(Utils.colorize(langConfig.getString("frameDisplay.title")));
+        frameDisplayMeta.setLore(Arrays.asList(ChatColor.GRAY + langConfig.getString("frameDisplay.lore1"), ChatColor.GRAY + langConfig.getString("frameDisplay.lore2")));
         frameDisplay.setItemMeta(frameDisplayMeta);
         frameDisplayButton = frameDisplay;
-
-        ItemStack brightDisplay = new ItemStack(Material.GLOWSTONE_DUST);
+        
+        ItemStack brightDisplay = new ItemStack(Material.GLOWSTONE_DUST); //Re
         ItemMeta brightDisplayMeta = brightDisplay.getItemMeta();
-        brightDisplayMeta.setDisplayName(Utils.colorize("&r&e&lADD LIGHT &6&l// &r&e&lREMOVE LIGHT"));
-        brightDisplayMeta.setLore(Arrays.asList(ChatColor.GRAY + "Click to add/remove a backlight to the glass display"));
+        brightDisplayMeta.setDisplayName(Utils.colorize(langConfig.getString("brightDisplay.title")));
+        brightDisplayMeta.setLore(Arrays.asList(ChatColor.GRAY + langConfig.getString("brightDisplay.lore")));
         brightDisplay.setItemMeta(brightDisplayMeta);
         glowingDisplayButton = brightDisplay;
-
-        ItemStack deleteDisplay = new ItemStack(Material.BARRIER);
+        
+        ItemStack deleteDisplay = new ItemStack(Material.BARRIER); //Re
         ItemMeta deleteDisplayMeta = deleteDisplay.getItemMeta();
-        deleteDisplayMeta.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + "REMOVE DISPLAY");
-        deleteDisplayMeta.setLore(Arrays.asList(ChatColor.RED + "Click to remove the display."));
+        deleteDisplayMeta.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + langConfig.getString("deleteDisplay.title"));
+        deleteDisplayMeta.setLore(Arrays.asList(ChatColor.RED + langConfig.getString("deleteDisplay.lore")));
         deleteDisplay.setItemMeta(deleteDisplayMeta);
         deleteDisplayButton= deleteDisplay;
     }

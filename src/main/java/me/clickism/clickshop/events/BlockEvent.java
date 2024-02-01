@@ -1,5 +1,6 @@
 package me.clickism.clickshop.events;
 
+import me.clickism.clickshop.LocalizationManager;
 import me.clickism.clickshop.ShopManager;
 import me.clickism.clickshop.Utils;
 import org.bukkit.*;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 public class BlockEvent implements Listener {
 
     private HashMap<Player, Location> fromList = new HashMap<>();
+    private LocalizationManager localizationManager;
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
@@ -53,21 +55,21 @@ public class BlockEvent implements Listener {
             if (!e.getPlayer().getName().equals(ShopManager.getOwner(e.getBlock().getLocation()))) {
                 if (e.getPlayer().isOp()) {
                     if (Tag.ALL_SIGNS.getValues().contains(e.getPlayer().getInventory().getItemInMainHand().getType())) {
-                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You broke someone else's shop.");
+                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("broke_others_shop"));
                         ShopManager.deleteShop(e.getBlock().getLocation());
                     } else {
                         e.setCancelled(true);
-                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Have a sign in your hand in order to break someone else's shop.");
+                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("sign_in_hand_to_break_others_shop"));
                     }
                 } else {
                     e.setCancelled(true);
-                    e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You can't break someone else's shop.");
+                    e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("cant_break_others_shop"));
                     Utils.playFailSound(e.getPlayer());
                 }
             } else {
                 ShopManager.deleteShop(e.getBlock().getLocation());
                 e.getPlayer().closeInventory();
-                e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Shop removed.");
+                e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("shop_removed"));
                 Utils.playFailSound(e.getPlayer());
             }
         } if (e.getBlock().getType() == Material.CHEST || e.getBlock().getType() == Material.BARREL) {
@@ -81,23 +83,23 @@ public class BlockEvent implements Listener {
                 if (ShopManager.getOwner(shopLocation).equals(e.getPlayer().getName())) {
                     if (e.getBlock().getLocation() != shopLocation) {
                         e.setCancelled(true);
-                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You can't break a stockpile before disconnecting it.");
+                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("cant_break_stockpile_before_disconnect"));
                         Utils.playFailSound(e.getPlayer());
                     } else {
                         ShopManager.deleteShop(shopLocation);
                         e.getPlayer().closeInventory();
-                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Shop removed.");
+                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("shop_removed"));
                         Utils.playFailSound(e.getPlayer());
                     }
                 } else {
                     e.setCancelled(true);
-                    e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You can't break someone else's stockpile.");
+                    e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("cant_break_others_stockpile"));
                     Utils.playFailSound(e.getPlayer());
                 }
             }
         } else if (!ShopManager.getConnectedShopsToEarningPile(e.getBlock().getLocation()).isEmpty()) {
             if (ShopManager.getOwner(ShopManager.getConnectedShopsToEarningPile(e.getBlock().getLocation()).get(0)).equals(e.getPlayer().getName())) {
-                e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You broke your earnings pile.");
+                e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("broke_your_earnings_pile"));
                 Utils.playFailSound(e.getPlayer());
                 ShopManager.getConnectedShopsToEarningPile(e.getBlock().getLocation()).forEach(shop -> {
                     ShopManager.setEarningsPile(shop, null);
@@ -105,16 +107,16 @@ public class BlockEvent implements Listener {
             } else {
                 if (e.getPlayer().isOp()) {
                     if (Tag.ALL_SIGNS.getValues().contains(e.getPlayer().getInventory().getItemInMainHand().getType())) {
-                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You broke someone else's earnings pile.");
+                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("broke_others_earnings_pile"));
                         ShopManager.getConnectedShopsToEarningPile(e.getBlock().getLocation()).forEach(shop -> {
                             ShopManager.setEarningsPile(shop, null);
                         });
                     } else {
                         e.setCancelled(true);
-                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Have a sign in your hand in order to break someone else's earnings pile.");
+                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("sign_in_hand_to_break_others_earnings_pile"));
                     }
                 } else {
-                    e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You can't break someone else's earnings pile.");
+                    e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("cant_break_others_earnings_pile"));
                 }
             }
         }

@@ -16,6 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ShopManager {
+    private static LocalizationManager localizationManager = new LocalizationManager();
 
     public static void setPlugin(ClickShop plugin) {
         ShopManager.plugin = plugin;
@@ -259,14 +260,14 @@ public class ShopManager {
         existingTethersList.put(player, codList);
         selectingPile.put(player, 1);
         checkTethers();
-        player.sendTitle("",  ChatColor.GOLD + "<< " + ChatColor.YELLOW + "Click a chest/barrel to add/remove stockpile"  +  ChatColor.GOLD + " >>", 1, 9999999, 1);
+        player.sendTitle("",  ChatColor.GOLD + "<< " + ChatColor.YELLOW + localizationManager.getMessage("click.chest.barrel") +  ChatColor.GOLD + " >>", 1, 9999999, 1);
     }
-
+    
     public static void selectEarningsPile(Player player, Location location) {
         existingTethersList.put(player, createTether(location, player));
         checkTethers();
         selectingPile.put(player, 2);
-        player.sendTitle("",  ChatColor.GOLD + "<< " + ChatColor.YELLOW + "Click an " + ChatColor.WHITE+ "Ender Chest" + ChatColor.YELLOW + " to add earnings pile" +  ChatColor.GOLD + " >>", 1, 9999999, 1);
+        player.sendTitle("",  ChatColor.GOLD + "<< " + ChatColor.YELLOW + localizationManager.getMessage("click.ender.chest") +  ChatColor.GOLD + " >>", 1, 9999999, 1);
     }
 
     public static Location getAnchorTetherLocationFromPlayer(Player p) {
@@ -310,7 +311,7 @@ public class ShopManager {
         existingTethersList.put(player, codList);
         selectingPile.put(player, 3);
         checkTethers();
-        player.sendTitle("",  ChatColor.GOLD + "<< " + ChatColor.YELLOW + "Right click a shop to add/remove earnings pile" +  ChatColor.GOLD + " >>", 1, 9999999, 1);
+        player.sendTitle("",  ChatColor.GOLD + "<< " + ChatColor.YELLOW + localizationManager.getMessage("right.click.shop") +  ChatColor.GOLD + " >>", 1, 9999999, 1);
     }
 
     public static int getSelectingPile(Player p) {
@@ -352,7 +353,7 @@ public class ShopManager {
                                     if (cod.getLeashHolder().equals(p) && p.getLocation().distance(cod.getLocation()) > 9d) {
                                         cancelList.add(p);
                                         p.playSound(p.getLocation(), Sound.ENTITY_ITEM_BREAK, 1f,1f);
-                                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "You are now connecting wirelessly.");
+                                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("connecting.wirelessly"));
                                         Utils.playConfirmSound(p);
                                     }
                                 } catch (IllegalStateException ignored) { }
@@ -403,14 +404,14 @@ public class ShopManager {
                 data.saveConfig();
                 clearTethers(player);
                 Utils.playConfirmSound(player);
-                player.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "Stockpile connection added.");
+                player.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("stockpile.connection.added"));
             } else {
                 stockList.add(loc);
                 data.getConfig().set("shops." + InteractEvent.getLastClickedChestPosition(player) + ".shop.stock", stockList);
                 data.saveConfig();
                 clearTethers(player);
                 Utils.playConfirmSound(player);
-                player.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "Wireless stockpile connection added.");
+                player.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("wireless.stockpile.connection.added"));
             }
         } else {
             removeStockPile(player, stock);
@@ -422,10 +423,10 @@ public class ShopManager {
             setEarningsPile(InteractEvent.getLastClickedChestPosition(player), pile);
             clearTethers(player);
             Utils.playConfirmSound(player);
-            player.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "Earnings pile connection added.");
+            player.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("earningspile.connection.added"));
         } else {
             Utils.playFailSound(player);
-            player.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Earnings pile must not be further than " + ChatColor.WHITE + "10 blocks" + ChatColor.RED + " away from the shop.");
+            player.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("earningspile.distance.error"));
         }
     }
 
@@ -434,16 +435,16 @@ public class ShopManager {
             if (shop.equals(getShopLocationFromStockPile(InteractEvent.getLastClickedChestPosition(player)))) {
                 setEarningsPile(shop, null);
                 Utils.playFailSound(player);
-                player.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Earnings pile connection removed.");
+                player.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("earningspile.connection.removed"));
             } else {
                 setEarningsPile(shop, InteractEvent.getLastClickedChestPosition(player));
                 Utils.playConfirmSound(player);
-                player.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "Earnings pile connection added.");
+                player.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("earningspile.connection.added"));
             }
             clearTethers(player);
         } else {
             Utils.playFailSound(player);
-            player.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Earnings pile must not be further than " + ChatColor.WHITE + "10 blocks" + ChatColor.RED + " away from the shop.");
+            player.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("earningspile.distance.error"));
         }
     }
 
@@ -459,7 +460,7 @@ public class ShopManager {
             data.getConfig().set("shops." + InteractEvent.getLastClickedChestPosition(player) + ".shop.stock", stockList);
             data.saveConfig();
             clearTethers(player);
-            player.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Stockpile connection removed.");
+            player.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("stockpile.connection.removed"));
             Utils.playFailSound(player);
         }
     }
@@ -538,14 +539,14 @@ public class ShopManager {
             }
 
             if (singleType.get()) {
-                buyer.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "You bought " + ChatColor.WHITE + productName + ChatColor.GREEN + " from " + ChatColor.BOLD + owner +  " for " + ChatColor.WHITE + priceName + ".");
+                buyer.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("you.bought") + ChatColor.WHITE + productName + ChatColor.GREEN + localizationManager.getMessage("from") + ChatColor.BOLD + owner +  localizationManager.getMessage("for") + ChatColor.WHITE + priceName + ".");
                 if (Bukkit.getPlayer(owner) != null) {
-                    Bukkit.getPlayer(owner).sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "" + ChatColor.BOLD + buyer.getName() + ChatColor.RESET + "" + ChatColor.GREEN + " bought " + ChatColor.WHITE + productName + ChatColor.GREEN + " from you for " + ChatColor.WHITE + priceName + ".");
+                    Bukkit.getPlayer(owner).sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "" + ChatColor.BOLD + buyer.getName() + ChatColor.RESET + "" + ChatColor.GREEN + localizationManager.getMessage("bought") + ChatColor.WHITE + productName + ChatColor.GREEN + localizationManager.getMessage("from.you.for") + ChatColor.WHITE + priceName + ".");
                 }
             } else {
-                buyer.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "You bought various products from " + ChatColor.BOLD + owner + ChatColor.GREEN + "for" + ChatColor.WHITE + priceName + ".");
+                buyer.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("you.bought.various") + ChatColor.BOLD + owner + ChatColor.GREEN + localizationManager.getMessage("for") + ChatColor.WHITE + priceName + ".");
                 if (Bukkit.getPlayer(owner) != null) {
-                    Bukkit.getPlayer(owner).sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "" + ChatColor.BOLD + buyer.getName() + ChatColor.RESET + "" + ChatColor.GREEN + " bought various products from you for " + ChatColor.WHITE + priceName + ".");
+                    Bukkit.getPlayer(owner).sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "" + ChatColor.BOLD + buyer.getName() + ChatColor.RESET + "" + ChatColor.GREEN + localizationManager.getMessage("bought.various.from.you.for") + ChatColor.WHITE + priceName + ".");
                 }
             }
 
@@ -567,14 +568,16 @@ public class ShopManager {
                     if (warnedPlayerLocations.containsKey(Bukkit.getPlayer(owner))) {
                         if (!warnedPlayerLocations.get(Bukkit.getPlayer(owner)).contains(location)) {
                             warnedPlayerLocations.get(Bukkit.getPlayer(owner)).add(location);
-                            Bukkit.getPlayer(owner).sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Your shop at " + ChatColor.BOLD + (int) location.getX() + " " + (int) location.getY() + " " + (int) location.getZ() + ChatColor.RED + " ran out of stock.");
+                            String locationString = (int) location.getX() + " " + (int) location.getY() + " " + (int) location.getZ();
+                            Bukkit.getPlayer(owner).sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + String.format(localizationManager.getMessage("shop.out.of.stock"), locationString));
                             Utils.playFailSound(Bukkit.getPlayer(owner));
                         }
                     } else {
                         List<Location> locationList = new ArrayList<>();
                         locationList.add(location);
                         warnedPlayerLocations.put(Bukkit.getPlayer(owner), locationList);
-                        Bukkit.getPlayer(owner).sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Your shop at " + ChatColor.BOLD + (int) location.getX() + " " + (int) location.getY() + " " + (int) location.getZ() + ChatColor.RED + " ran out of stock.");
+                        String locationString = (int) location.getX() + " " + (int) location.getY() + " " + (int) location.getZ();
+                        Bukkit.getPlayer(owner).sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + String.format(localizationManager.getMessage("shop.out.of.stock"), locationString));
                         Utils.playFailSound(Bukkit.getPlayer(owner));
                     }
                 }
@@ -587,7 +590,7 @@ public class ShopManager {
                 setOutOfStockLocations(owner, list);
             }
         } else {
-            buyer.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You don't have enough money.");
+            buyer.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("not.enough.money"));
         }
     }
 
@@ -619,7 +622,7 @@ public class ShopManager {
             total_earnings.addAndGet(collectEarnings(p, shop, false));
         });
         if (total_earnings.get() == 0) {
-            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You don't have any earnings yet.");
+            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("no.earnings.yet"));
         }
     }
 
@@ -678,7 +681,7 @@ public class ShopManager {
         } else {
             p.closeInventory();
             if (message) {
-                p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You don't have any earnings yet.");
+                p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("no.earnings.yet"));
             }
             Utils.playFailSound(p);
         }
