@@ -1,5 +1,6 @@
 package me.clickism.clickshop.events;
 
+import me.clickism.clickshop.LocalizationManager;
 import me.clickism.clickshop.ClickShop;
 import me.clickism.clickshop.ShopManager;
 import me.clickism.clickshop.ShopMenu;
@@ -27,6 +28,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class InteractEvent implements Listener {
     public static HashMap<Player, Location> lastClickedChestLocations = new HashMap<>();
+    private LocalizationManager localizationManager;
+
+    public InteractEvent() {
+        this.localizationManager = new LocalizationManager();
+    }
 
     public static void setPlugin(ClickShop pl) {
         plugin = pl;
@@ -77,7 +83,8 @@ public class InteractEvent implements Listener {
                     }
                 });
                 if (products.isEmpty() || price.equals(ShopMenu.getPriceButton())) {
-                    e.getView().getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You can't leave the price and product areas empty.");
+                    String message = localizationManager.getMessage("empty_price_product_areas");
+                    e.getView().getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + message);
                     Utils.playFailSound(p);
                     p.closeInventory();
                 } else {
@@ -85,11 +92,12 @@ public class InteractEvent implements Listener {
                     if (!ShopManager.isShop(getLastClickedChestPosition(p))) {
                         ShopManager.createShop(price, products, getLastClickedChestPosition(p), p.getName());
                         p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_DESTROY, .3f, 1f);
-                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "Shop succesfully created.");
-//                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GOLD + "" + ChatColor.ITALIC + "Not: " + ChatColor.YELLOW + "" + ChatColor.ITALIC + "Dükkanı kaldırmak için bloğu kır.");
+                        String message = localizationManager.getMessage("shop_successfully_created");
+                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + message);
                         p.closeInventory();
                     } else {
-                        e.getView().getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "There's already a shop here.");
+                        String message = localizationManager.getMessage("shop_already_exists");
+                        e.getView().getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + message);
                         Utils.playFailSound(p);
                         p.closeInventory();
                     }
@@ -123,7 +131,7 @@ public class InteractEvent implements Listener {
                 p.closeInventory();
                 if (ShopManager.getEarningsPile(getLastClickedChestPosition(p)) != null) {
                     ShopManager.setEarningsPile(getLastClickedChestPosition(p), null);
-                    p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Previous earnings pile removed.");
+                    p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("previous_earnings_removed"));
                     Utils.playFailSound(p);
                 }
                 ShopManager.selectEarningsPile(p, getLastClickedChestPosition(p));
@@ -167,7 +175,7 @@ public class InteractEvent implements Listener {
                     }
                 });
                 if (products.isEmpty() || price.equals(ShopMenu.getPriceButton())) {
-                    e.getView().getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Please don't leave the price and product are empty.");
+                    e.getView().getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("empty_price_product"));
                     Utils.playFailSound(p);
                     e.setCancelled(true);
                     p.closeInventory();
@@ -176,17 +184,17 @@ public class InteractEvent implements Listener {
                     e.setCancelled(true);
                     ShopManager.editShopPrice(price, products, getLastClickedChestPosition(p));
                     p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_DESTROY, .3f, 1f);
-                    p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "Saved changes.");
+                    p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("saved_changes"));
                     p.closeInventory();
                 }
-            } else if (e.getCurrentItem().equals(ShopMenu.getDeleteButton())) {
-                e.setCancelled(true);
-                ShopManager.deleteShop(getLastClickedChestPosition(p));
-                p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Shop removed.");
-                p.closeInventory();
-            } else {
-                e.setCancelled(true);
-            }
+                } else if (e.getCurrentItem().equals(ShopMenu.getDeleteButton())) {
+                    e.setCancelled(true);
+                    ShopManager.deleteShop(getLastClickedChestPosition(p));
+                    p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("shop_removed"));
+                    p.closeInventory();
+                } else {
+                    e.setCancelled(true);
+                }
         }
         if (e.getView().getTitle().equals(ShopMenu.getCollectMenuTitle())) {
             //Enderchest
@@ -250,7 +258,7 @@ public class InteractEvent implements Listener {
 
                         Utils.playConfirmSound(p);
                     } else {
-                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Please put a valid block.");
+                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("invalid_block"));
                         Utils.playFailSound(p);
                     }
                 }
@@ -288,16 +296,15 @@ public class InteractEvent implements Listener {
 
                     if (e.getCursor() != null && glassList.contains(e.getCursor().getType())) {
                         glassDisplay.setBlock(e.getCursor().getType().createBlockData());
-//                        e.getCurrentItem().setType(e.getCursor().getType());
-                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "Glass color changed.");
+                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("glass_color_changed"));
                         Utils.playConfirmSound(p);
                     } else {
                         glassDisplay.setBlock(oldGlassDisplayMaterial.createBlockData());
                         if (e.getCursor().getType() == Material.AIR) {
-                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "Glass display created.");
+                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("glass_display_created"));
                             Utils.playConfirmSound(p);
                         } else {
-                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Please put a valid colored glass block.");
+                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("invalid_colored_glass_block"));
                             Utils.playFailSound(p);
                         }
                     }
@@ -383,16 +390,15 @@ public class InteractEvent implements Listener {
 
                     if (e.getCursor() != null && e.getCursor().getType().isBlock() && e.getCursor().getType().isSolid()) {
                         baseDisplay.setBlock(e.getCursor().getType().createBlockData());
-//                        e.getCurrentItem().setType(e.getCursor().getType());
-                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "Glass display base changed.");
+                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("glass_display_base_changed"));
                         Utils.playConfirmSound(p);
                     } else {
                         baseDisplay.setBlock(oldBaseDisplayMaterial.createBlockData());
                         if (e.getCursor().getType() == Material.AIR) {
-                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "Glass display created.");
+                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("glass_display_created"));
                             Utils.playConfirmSound(p);
                         } else {
-                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Please put a valid block.");
+                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("invalid_block"));
                             Utils.playFailSound(p);
                         }
                     }
@@ -464,19 +470,18 @@ public class InteractEvent implements Listener {
                         if (e.getCursor() != null && e.getCursor().getType().isBlock() && e.getCursor().getType().isSolid()) {
                             topFrame.setBlock(e.getCursor().getType().createBlockData());
                             bottomFrame.setBlock(e.getCursor().getType().createBlockData());
-//                            e.getCurrentItem().setType(e.getCursor().getType());
-                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "Frame display with outer frame created.");
+                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("frame_display_outer_created"));
                             Utils.playConfirmSound(p);
                         } else {
                             e.getCurrentItem().setType(ShopMenu.getFrameDisplayButton().getType());
                             if (e.getCursor().getType() == Material.AIR) {
                                 topFrame.setBlock(Material.AIR.createBlockData());
                                 bottomFrame.setBlock(Material.AIR.createBlockData());
-                                p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "Frame display with no outer frame created.");
-                                p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GOLD + "" + ChatColor.ITALIC + "Not: " + ChatColor.YELLOW + "" + ChatColor.ITALIC + "Click the button with a block to add an outer frame.");
+                                p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("frame_display_no_outer_created"));
+                                p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GOLD + "" + ChatColor.ITALIC + localizationManager.getMessage("note") + ": " + ChatColor.YELLOW + "" + ChatColor.ITALIC + localizationManager.getMessage("click_button_add_outer"));
                                 Utils.playConfirmSound(p);
                             } else {
-                                p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Please put a valid block.");
+                                p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("invalid_block"));
                                 topFrame.setBlock(oldFrameDisplayMaterial.createBlockData());
                                 bottomFrame.setBlock(oldFrameDisplayMaterial.createBlockData());
                                 Utils.playFailSound(p);
@@ -515,41 +520,41 @@ public class InteractEvent implements Listener {
                         if (loc.getBlock().getType() == Material.LIGHT) {
                             loc.getBlock().setType(Material.AIR);
                         }
-                    } else {
-                        Utils.playFailSound(p);
-                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You can't add a frame display when the shop block is a chest.");
-                    }
-                }
-                if (e.getCurrentItem().equals(ShopMenu.getGlowingDisplayButton())) {
-                    //Glow
-                    if (ShopManager.getDisplay(getLastClickedChestPosition(p)).equals("glass")) {
-                        //Add Glow
-                        Location loc = getLastClickedChestPosition(p).clone().add(0,1,0);
-                        if (loc.getBlock().getType() == Material.AIR) {
-                            loc.getBlock().setType(Material.LIGHT);
-                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "Light added.");
-                            ShopManager.setDisplay(getLastClickedChestPosition(p), "glass_glowing");
-                            Utils.playConfirmSound(p);
                         } else {
-                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Please break the block above the shop.");
                             Utils.playFailSound(p);
+                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("cant_add_frame"));
                         }
-                        p.closeInventory();
-                    } else if (ShopManager.getDisplay(getLastClickedChestPosition(p)).equals("glass_glowing")) {
-                        //Remove Glow
-                        if (getLastClickedChestPosition(p).clone().add(0,1,0).getBlock().getType() == Material.LIGHT) {
-                            getLastClickedChestPosition(p).clone().add(0, 1, 0).getBlock().setType(Material.AIR);
                         }
-                        p.closeInventory();
-                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "Light removed.");
-                        Utils.playConfirmSound(p);
-                        ShopManager.setDisplay(getLastClickedChestPosition(p), "glass");
-                    } else {
-                        p.closeInventory();
-                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You can only add light to a glass display.");
-                        Utils.playFailSound(p);
-                    }
-                }
+                        if (e.getCurrentItem().equals(ShopMenu.getGlowingDisplayButton())) {
+                            //Glow
+                            if (ShopManager.getDisplay(getLastClickedChestPosition(p)).equals("glass")) {
+                                //Add Glow
+                                Location loc = getLastClickedChestPosition(p).clone().add(0,1,0);
+                                if (loc.getBlock().getType() == Material.AIR) {
+                                    loc.getBlock().setType(Material.LIGHT);
+                                    p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("light_added"));
+                                    ShopManager.setDisplay(getLastClickedChestPosition(p), "glass_glowing");
+                                    Utils.playConfirmSound(p);
+                                } else {
+                                    p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("break_block_above"));
+                                    Utils.playFailSound(p);
+                                }
+                                p.closeInventory();
+                            } else if (ShopManager.getDisplay(getLastClickedChestPosition(p)).equals("glass_glowing")) {
+                                //Remove Glow
+                                if (getLastClickedChestPosition(p).clone().add(0,1,0).getBlock().getType() == Material.LIGHT) {
+                                    getLastClickedChestPosition(p).clone().add(0, 1, 0).getBlock().setType(Material.AIR);
+                                }
+                                p.closeInventory();
+                                p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("light_removed"));
+                                Utils.playConfirmSound(p);
+                                ShopManager.setDisplay(getLastClickedChestPosition(p), "glass");
+                            } else {
+                                p.closeInventory();
+                                p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("only_add_light_glass"));
+                                Utils.playFailSound(p);
+                            }
+                        }
                 if (e.getCurrentItem().equals(ShopMenu.getDeleteDisplayButton())) {
                     getLastClickedChestPosition(p).clone().add(0,1,0).getBlock().setType(Material.AIR);
                     ShopManager.getEntitiesList(getLastClickedChestPosition(p)).forEach(uuidString -> {
@@ -559,7 +564,7 @@ public class InteractEvent implements Listener {
                         }
                     });
                     p.closeInventory();
-                    p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "Display removed.");
+                    p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("display_removed"));
                     Utils.playConfirmSound(p);
                     ShopManager.setDisplay(getLastClickedChestPosition(p), "default");
                 }
@@ -581,7 +586,7 @@ public class InteractEvent implements Listener {
                     if (e.getClickedBlock().getType() == Material.CHEST || e.getClickedBlock().getType() == Material.BARREL) {
                         e.setCancelled(true);
                         if (ShopManager.isShop(e.getClickedBlock().getLocation())) {
-                            e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You can't connect this chest.");
+                            e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("cant_connect_chest"));
                             Utils.playFailSound(e.getPlayer());
                         } else {
                             ShopManager.addStockPile(e.getPlayer(), e.getClickedBlock().getLocation());
@@ -591,14 +596,14 @@ public class InteractEvent implements Listener {
                         e.setCancelled(true);
                         ShopManager.clearTethers(e.getPlayer());
                         ShopManager.removeSelectingPile(e.getPlayer());
-                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Stockpile selection cancelled.");
+                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("stockpile_selection_cancelled"));
                         Utils.playFailSound(e.getPlayer());
                     }
                 } else {
                     e.setCancelled(true);
                     ShopManager.clearTethers(e.getPlayer());
                     ShopManager.removeSelectingPile(e.getPlayer());
-                    e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Stockpile selection cancelled.");
+                    e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("stockpile_selection_cancelled"));
                     Utils.playFailSound(e.getPlayer());
                 }
             } else if (ShopManager.getSelectingPile(e.getPlayer()) == 2) {
@@ -613,14 +618,14 @@ public class InteractEvent implements Listener {
                         e.setCancelled(true);
                         ShopManager.clearTethers(e.getPlayer());
                         ShopManager.removeSelectingPile(e.getPlayer());
-                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Earnings pile selection cancelled.");
+                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("earnings_pile_selection_cancelled"));
                         Utils.playFailSound(e.getPlayer());
                     }
                 } else {
                     e.setCancelled(true);
                     ShopManager.clearTethers(e.getPlayer());
                     ShopManager.removeSelectingPile(e.getPlayer());
-                    e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Earnings pile selection cancelled.");
+                    e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("earnings_pile_selection_cancelled"));
                     Utils.playFailSound(e.getPlayer());
                 }
             } else if (ShopManager.getSelectingPile(e.getPlayer()) == 3) {
@@ -633,21 +638,21 @@ public class InteractEvent implements Listener {
                             ShopManager.removeSelectingPile(e.getPlayer());
                             Utils.playConfirmSound(e.getPlayer());
                         } else {
-                            e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You can only add an earnings pile to your shops.");
+                            e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("only_add_earnings_pile"));
                             Utils.playFailSound(e.getPlayer());
                         }
                     } else {
                         e.setCancelled(true);
                         ShopManager.clearTethers(e.getPlayer());
                         ShopManager.removeSelectingPile(e.getPlayer());
-                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Please click a shop.");
+                        e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("please_click_shop"));
                         Utils.playFailSound(e.getPlayer());
                     }
                 } else {
                     e.setCancelled(true);
                     ShopManager.clearTethers(e.getPlayer());
                     ShopManager.removeSelectingPile(e.getPlayer());
-                    e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Shop selection cancelled.");
+                    e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("shop_selection_cancelled"));
                     Utils.playFailSound(e.getPlayer());
                 }
             }
@@ -681,7 +686,7 @@ public class InteractEvent implements Listener {
                             e.getPlayer().openInventory(ShopMenu.getCollectMenu());
                             e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_ENDER_CHEST_OPEN, .3f,1f);
                         } else {
-                            e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You can't access someone else's stockpile.");
+                            e.getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("cant_access_stockpile"));
                             Utils.playFailSound(e.getPlayer());
                         }
                     }
@@ -702,33 +707,33 @@ public class InteractEvent implements Listener {
                 ShopManager.clearTethers(p);
                 if (e.getInventory().getHolder() instanceof Chest || e.getInventory().getHolder() instanceof Barrel) {
                     if (shopLocationFromStock != null) {
-                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You can't create a shop on a stockpile.");
+                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("cant_create_shop_stockpile"));
                         Utils.playFailSound(p);
                     } else {
                         setLastClickedChestLocations(p, location);
                         InventoryHolder invHolder = (InventoryHolder) e.getInventory().getLocation().getBlock().getState();
                         if (ShopManager.isShop(e.getInventory().getLocation())) {
-                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "There's already a shop here.");
+                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("shop_already_here"));
                             Utils.playFailSound(p);
                         } else if (invHolder.getInventory().isEmpty()) {
                             p.openInventory(ShopMenu.getCreateShopMenu());
                         } else {
-                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "The chest must be empty to create a shop.");
+                            p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("chest_empty_create_shop"));
                             Utils.playFailSound(p);
                         }
                     }
                 } else if (e.getInventory().getHolder() instanceof DoubleChest) {
-                    e.getView().getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You can't create a shop on double chests.");
+                    e.getView().getPlayer().sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("cant_create_shop_double_chests"));
                     Utils.playFailSound(p);
                 }
             }
             if (shopLocationFromStock != null) {
                 if (!ShopManager.getOwner(shopLocationFromStock).equals(p.getName())) {
                     if (p.isOp()) {
-                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You accessed someone else's stockpile.");
+                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("accessed_stockpile"));
                     } else {
                         e.setCancelled(true);
-                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "You can't access someone else's stockpile.");
+                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + localizationManager.getMessage("cant_access_stockpile"));
                     }
                 }
             }
@@ -775,7 +780,11 @@ public class InteractEvent implements Listener {
                             ShopManager.warnedPlayerLocations.get(p).remove(location);
                         }
                     } else {
-                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + "Your shop at " + ChatColor.BOLD + (int) location.getX() + " " + (int) location.getY() + " " + (int) location.getZ() + ChatColor.RED + " ran out of stock.");
+                        String message = localizationManager.getMessage("shop_out_of_stock");
+                        message = message.replace("{x}", String.valueOf((int) location.getX()));
+                        message = message.replace("{y}", String.valueOf((int) location.getY()));
+                        message = message.replace("{z}", String.valueOf((int) location.getZ()));
+                        p.sendMessage(ChatColor.GOLD + ">> " + ChatColor.RED + message);
                     }
                 });
                 ShopManager.setOutOfStockLocations(p.getName(), list);

@@ -1,3 +1,4 @@
+// clickshop/src/main/java/me/clickism/clickshop/ClickShop.java
 package me.clickism.clickshop;
 
 import me.clickism.clickshop.events.BlockEvent;
@@ -12,31 +13,32 @@ public final class ClickShop extends JavaPlugin {
     }
 
     public static DataManager data;
+    public static LocalizationManager localization;
+
     @Override
     public void onEnable() {
-        // Plugin startup logic
         data = new DataManager(this);
-
+        localization = new LocalizationManager();
+    
         Bukkit.getLogger().info("ClickShop activated.");
-        Bukkit.getPluginManager().registerEvents(new BlockEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new BlockEvent(localization), this);
         Bukkit.getPluginManager().registerEvents(new InteractEvent(), this);
-
+    
         ShopManager.setPlugin(this);
         ShopMenu.setPlugin(this);
         InteractEvent.setPlugin(this);
         Utils.setPlugin(this);
-
+    
         ShopMenu.setupInventories();
         ShopManager.setupData(data);
-
+    
         Bukkit.getOnlinePlayers().forEach(p -> {
             p.resetTitle();
         });
-
     }
+    
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
         Bukkit.getLogger().info("ClickShop deactivated.");
         Bukkit.getOnlinePlayers().forEach(p -> {
             p.resetTitle();
@@ -46,5 +48,9 @@ public final class ClickShop extends JavaPlugin {
 
     public static DataManager getData() {
         return data;
+    }
+
+    public static LocalizationManager getLocalization() {
+        return localization;
     }
 }
