@@ -75,14 +75,15 @@ earningspile:
     removed: "Соединение с сейфом удалено"
   distance:
     error: "Сейф не должен быть дальше 10 блоков от магазина"
-you:
-  bought: "Вы купили "
-  bought.various: "Вы купили различные товары у "
+
+you_bought: "Вы купили "
+you_bought_various: "Вы купили различные товары у "
 from: " от "
 for: " за "
 bought: " куплено "
-from.you.for: " у вас за "
-bought.various.from.you.for: " куплено различных товаров у вас за "
+from_you_for: " у вас за "
+bought_various_from_you_for: " куплено различных товаров у вас за " 
+
 shop:
   out.of.stock: "Ваш магазин в % закончился запас"
 not.enough.money: "У вас недостаточно денег"

@@ -21,6 +21,10 @@ public class BlockEvent implements Listener {
     private HashMap<Player, Location> fromList = new HashMap<>();
     private LocalizationManager localizationManager;
 
+    public BlockEvent(LocalizationManager localizationManager) {
+        this.localizationManager = localizationManager;
+    }
+
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
         if (ShopManager.isPlayerConnectingTethers(e.getPlayer())) {

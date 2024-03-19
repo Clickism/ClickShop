@@ -539,14 +539,14 @@ public class ShopManager {
             }
 
             if (singleType.get()) {
-                buyer.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("you.bought") + ChatColor.WHITE + productName + ChatColor.GREEN + localizationManager.getMessage("from") + ChatColor.BOLD + owner +  localizationManager.getMessage("for") + ChatColor.WHITE + priceName + ".");
+                buyer.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("you_bought") + ChatColor.WHITE + productName + ChatColor.GREEN + " \u2192 " + ChatColor.BOLD + owner +  localizationManager.getMessage("for") + ChatColor.WHITE + priceName + ".");
                 if (Bukkit.getPlayer(owner) != null) {
-                    Bukkit.getPlayer(owner).sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "" + ChatColor.BOLD + buyer.getName() + ChatColor.RESET + "" + ChatColor.GREEN + localizationManager.getMessage("bought") + ChatColor.WHITE + productName + ChatColor.GREEN + localizationManager.getMessage("from.you.for") + ChatColor.WHITE + priceName + ".");
+                    Bukkit.getPlayer(owner).sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "" + ChatColor.BOLD + buyer.getName() + ChatColor.RESET + "" + ChatColor.GREEN + " \u00A2 " + ChatColor.WHITE + productName + ChatColor.GREEN + localizationManager.getMessage("from_you_for") + ChatColor.WHITE + priceName + ".");
                 }
             } else {
-                buyer.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("you.bought.various") + ChatColor.BOLD + owner + ChatColor.GREEN + localizationManager.getMessage("for") + ChatColor.WHITE + priceName + ".");
+                buyer.sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + localizationManager.getMessage("you_bought_various") + ChatColor.BOLD + owner + ChatColor.GREEN + localizationManager.getMessage("for") + ChatColor.WHITE + priceName + ".");
                 if (Bukkit.getPlayer(owner) != null) {
-                    Bukkit.getPlayer(owner).sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "" + ChatColor.BOLD + buyer.getName() + ChatColor.RESET + "" + ChatColor.GREEN + localizationManager.getMessage("bought.various.from.you.for") + ChatColor.WHITE + priceName + ".");
+                    Bukkit.getPlayer(owner).sendMessage(ChatColor.GOLD + ">> " + ChatColor.GREEN + "" + ChatColor.BOLD + buyer.getName() + ChatColor.RESET + "" + ChatColor.GREEN + localizationManager.getMessage("bought_various_from_you_for") + ChatColor.WHITE + priceName + ".");
                 }
             }
 

@@ -75,14 +75,15 @@ earningspile:
     removed: "Earnings pile connection removed."
   distance:
     error: "Earnings pile must not be further than 10 blocks away from the shop."
-you:
-  bought: "You bought "
-  bought.various: "You bought various products from "
+    
+you_bought: "You bought "
+you_bought_various: "You bought various products from "
 from: " from "
 for: " for "
 bought: " bought "
-from.you.for: " from you for "
-bought.various.from.you.for: " bought various products from you for "
+from_you_for: " from you for "
+bought_various_from_you_for: " bought various products from you for "
+
 shop:
   out.of.stock: "Your shop at %s ran out of stock."
 not.enough.money: "You don't have enough money."
