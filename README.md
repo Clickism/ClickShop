@@ -3,6 +3,8 @@
 
 - **TRAILER:** https://www.youtube.com/watch?v=FcDirAUOClQ&ab_channel=Clickism
 
+# A REWRITE IS BEING WORKED ON!
+
 ## Features
 - **Effortles** usage with no commands.
 - Custom **product displays**.
