@@ -8,6 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+
 public class ClearStockpilesButton extends ShopButton {
 
     public ClearStockpilesButton(int slot, ItemShop shop) {
@@ -32,7 +34,8 @@ public class ClearStockpilesButton extends ShopButton {
         event.setCancelled(true);
         Player player = (Player) event.getWhoClicked();
         ItemShop shop = getShop();
-        shop.getStockpileSet().forEach(shop::removeStockpile);
+        new ArrayList<>(shop.getStockpileSet())
+                .forEach(shop::removeStockpile);
         Message.CLEAR_STOCKPILES.send(player);
         player.closeInventory();
     }

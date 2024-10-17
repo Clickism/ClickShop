@@ -32,11 +32,12 @@ public class PileConnector extends Connector {
         }
         if (pile.hasShop(shop)) {
             pile.removeShop(shop);
-            Message.CONNECTOR_REMOVE_EARNINGS.send(player);
+            Message.CONNECTOR_REMOVE_EARNINGS.sendSilently(player);
+            disconnectEffect(player);
         } else {
             if (pile.isShopLimitReachedAndWarn(player)) return;
             pile.addShop(shop);
-            Message.CONNECTOR_EARNINGS.send(player);
+            Message.CONNECTOR_EARNINGS.sendSilently(player);
             connectEffect(player, target);
         }
     }

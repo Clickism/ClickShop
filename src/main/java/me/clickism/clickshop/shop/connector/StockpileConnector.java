@@ -30,7 +30,8 @@ public class StockpileConnector extends Connector {
         Location center = getCenter(target);
         if (shop.getStockpileSet().contains(center)) {
             shop.removeStockpile(center);
-            Message.CONNECTOR_REMOVE_STOCKPILE.send(player);
+            Message.CONNECTOR_REMOVE_STOCKPILE.sendSilently(player);
+            disconnectEffect(player);
         } else {
             int maxStockPileCount = Setting.STOCKPILE_LIMIT_PER_SHOP.getInt();
             int stockPileCount = shop.getStockpileSet().size();
@@ -41,7 +42,7 @@ public class StockpileConnector extends Connector {
                 return;
             }
             shop.addStockpile(center);
-            Message.CONNECTOR_STOCKPILE.send(player);
+            Message.CONNECTOR_STOCKPILE.sendSilently(player);
             connectEffect(player, center);
         }
     }

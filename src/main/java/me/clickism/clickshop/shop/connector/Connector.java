@@ -3,10 +3,7 @@ package me.clickism.clickshop.shop.connector;
 import me.clickism.clickshop.Main;
 import me.clickism.clickshop.data.Message;
 import me.clickism.clickshop.data.Setting;
-import org.bukkit.Location;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
-import org.bukkit.SoundCategory;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
@@ -84,8 +81,18 @@ public abstract class Connector {
     }
 
     protected void connectEffect(Player player, Location target) {
-        player.spawnParticle(Particle.SONIC_BOOM, target.clone().add(.5, .5, .5), 1, 0, 0, 0);
-        player.playSound(player, Sound.ITEM_TOTEM_USE, .3f, .5f);
+        player.spawnParticle(Particle.SONIC_BOOM, target.clone().add(.5, .5, .5), 1, 0, 0, 0, 2);
+        player.playSound(player, Sound.BLOCK_AMETHYST_BLOCK_FALL, 1f, 1f);
+        Bukkit.getScheduler().runTaskLater(Main.getMain(), task -> {
+            player.playSound(player, Sound.BLOCK_AMETHYST_BLOCK_FALL, 1f, 1.5f);
+        }, 4L);
+        Bukkit.getScheduler().runTaskLater(Main.getMain(), task -> {
+            player.playSound(player, Sound.BLOCK_AMETHYST_BLOCK_FALL, 1f, 2f);
+        }, 6L);
+    }
+
+    protected void disconnectEffect(Player player) {
+        player.playSound(player, Sound.BLOCK_AMETHYST_BLOCK_FALL, 1f, .5f);
     }
 
     public Player getPlayer() {

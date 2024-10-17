@@ -45,8 +45,8 @@ sell-single: "&l{buyer} &ahat &f{product} &avon [hoverYourShop]&a für &f{price}
 
 # Connections
 connect-stockpile: "&6<< &eKlicke auf eine &lTruhe, &eum sie zu verbinden &6>>"
-connect-earnings: "&6<< &eKlicke auf eine &lEndertruhe &eum sie zu verbinden &6>>"
-connect-shop: "&6<< &eKlicke auf einen &lShop &eum ihn zu verbinden &6>>"
+connect-earnings: "&6<< &eKlicke auf eine &lEndertruhe, &eum sie zu verbinden &6>>"
+connect-shop: "&6<< &eKlicke auf einen &lShop, &eum ihn zu verbinden &6>>"
 
 connector-stockpile: "&lLagertruhe &averbunden."
 connector-earnings: "&lGewinntruhe &averbunden."
