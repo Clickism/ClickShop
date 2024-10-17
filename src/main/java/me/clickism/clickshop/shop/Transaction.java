@@ -60,12 +60,15 @@ public class Transaction {
 
         //Do transaction
         Inventory from = shop.getNextStockedInventory();
-        if (!shop.isAdminShop()) { // Skip removing item if admin shop
+        if (!shop.isAdminShop()) {
             products.forEach(product -> {
-                from.removeItem(product);
+                if (!from.removeItem(product).isEmpty()) {
+                    throw new IllegalStateException("Stock did not have enough items!");
+                }
                 Utils.addItem(buyer, product);
             });
         } else {
+            // Skip removing item if admin shop
             products.forEach(product -> {
                 Utils.addItem(buyer, product);
             });

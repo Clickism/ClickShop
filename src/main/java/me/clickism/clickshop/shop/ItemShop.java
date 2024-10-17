@@ -180,11 +180,16 @@ public class ItemShop implements ConfigurationSerializable {
     }
 
     private static boolean containsItems(Inventory inventory, List<ItemStack> items) {
-        boolean result = true;
-        for (ItemStack item : items) {
-            if (!inventory.containsAtLeast(item, item.getAmount())) result = false;
+        Map<ItemStack, Integer> amountMap = new HashMap<>();
+        items.forEach(item -> amountMap.put(item, amountMap.getOrDefault(item, 0) + item.getAmount()));
+        for (Map.Entry<ItemStack, Integer> entry : amountMap.entrySet()) {
+            ItemStack item = entry.getKey();
+            int amount = entry.getValue();
+            if (!inventory.containsAtLeast(item, amount)) {
+                return false;
+            }
         }
-        return result;
+        return true;
     }
 
     @Nullable
