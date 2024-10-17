@@ -1,6 +1,0 @@
-name: ClickShop
-version: '${project.version}'
-main: me.clickism.clickshop.ClickShop
-api-version: '1.20'
-authors: [Clickism]
-description: A shop plugin
