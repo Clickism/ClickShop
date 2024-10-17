@@ -1,5 +1,6 @@
 package me.clickism.clickshop.shop.connector;
 
+import me.clickism.clickshop.Main;
 import me.clickism.clickshop.data.Message;
 import me.clickism.clickshop.data.Setting;
 import me.clickism.clickshop.shop.ItemShop;
@@ -23,7 +24,8 @@ public class StockpileConnector extends Connector {
     public void handleConnection(Location target) {
         Player player = getPlayer();
         Material mat = target.getBlock().getType();
-        if (shop == null || ItemShop.get(target) != null || (mat != Material.CHEST && mat != Material.BARREL)) {
+        if (shop == null || ItemShop.get(target) != null || (mat != Material.CHEST && mat != Material.BARREL) ||
+                Main.getMain().getShopManager().getStockpileOwner(target) != null) {
             Message.CONNECTOR_INVALID.send(player);
             return;
         }

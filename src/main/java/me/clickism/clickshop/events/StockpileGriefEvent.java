@@ -6,12 +6,13 @@ import me.clickism.clickshop.data.Permission;
 import me.clickism.clickshop.shop.ShopManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.UUID;
 
@@ -30,9 +31,12 @@ public class StockpileGriefEvent implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onOpen(InventoryOpenEvent event) {
-        Player player = (Player) event.getPlayer();
-        Location location = event.getPlayer().getLocation();
+    public void onOpen(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        Block block = event.getClickedBlock();
+        if (block == null) return;
+        Location location = block.getLocation();
+        if (block.getType() != Material.CHEST && block.getType() != Material.BARREL) return;
         if (Permission.BYPASS_STOCKPILE.has(player)) return;
         if (isStockpileAndNotOwner(location, player)) {
             Message.STOCKPILE_NOT_OWNER.send(player);
