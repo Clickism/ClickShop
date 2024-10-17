@@ -128,6 +128,7 @@ public class Transaction {
             ownerMessage = Message.SELL_MULTIPLE;
         }
         parameterizer.setMessage(ownerMessage).sendSilently(owner);
+        buySound.playSound(owner);
 
         // Just ran out of stock
         if (!shop.hasStock()) {
