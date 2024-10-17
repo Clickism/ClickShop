@@ -27,7 +27,7 @@ permissions:
     description: Allows a player to connect earnings piles.
     default: true
   clickshop.delete:
-    description: Allows a player to break anyone's shop.
+    description: Allows a player to delete anyone's shop.
     default: op
   clickshop.bypass-stockpile:
     description: Allows a player to open anyone's stockpiles.
