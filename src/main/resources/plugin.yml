@@ -1,6 +1,38 @@
 name: ClickShop
 version: '${project.version}'
-main: me.clickism.clickshop.ClickShop
+main: me.clickism.clickshop.Main
 api-version: '1.20'
-authors: [Clickism]
+authors: [ Clickism ]
 description: A shop plugin
+permissions:
+  clickshop.create:
+    description: Allows a player to create a shop.
+    default: true
+  clickshop.buy:
+    description: Allows a player to buy from a shop.
+    default: true
+  clickshop.customize:
+    description: Allows a player to customize a shop.
+    default: true
+  clickshop.display:
+    description: Allows a player to build custom shop displays. (Player also to have clickshop.customize)
+    default: true
+  clickshop.sale-text:
+    description: Allows a player to add a sale text to a shop. (Player also needs to have clickshop.customize)
+    default: true
+  clickshop.stockpile:
+    description: Allows a player to connect stockpiles.
+    default: true
+  clickshop.earnings-pile:
+    description: Allows a player to connect earnings piles.
+    default: true
+  clickshop.delete:
+    description: Allows a player to break anyone's shop.
+    default: op
+  clickshop.bypass-stockpile:
+    description: Allows a player to open anyone's stockpiles.
+    default: op
+  clickshop.unlimited-stock:
+    description: Allows a player to enable unlimited stock for their shops. (Dangerous!)
+    default: op
+

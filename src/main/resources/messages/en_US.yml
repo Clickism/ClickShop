@@ -1,0 +1,283 @@
+# General
+update: "&eClickShop: &a&lNew version available: &f{version}"
+no-permission: "You don't have permission to do that."
+feature-disabled: "This feature is disabled."
+shop-no-break: "You can't break this shop."
+shop-break-owner: "You removed this shop."
+shop-break-operator: "You removed &l{owner}&e's shop."
+pile-no-break: "You can't break this earnings pile."
+pile-break-owner: "You removed this earnings pile."
+pile-break-operator: "You removed &l{owner}&e's earnings pile."
+block-place: "You can't place a block here."
+shop-error: "This shop no longer exists."
+pile-not-owner: "You can't access this earnings pile."
+
+stockpile-not-owner: "You can't access this stockpile."
+stockpile-no-break: "You can't break this stockpile."
+stockpile-remove-first: "You can't break a stockpile before removing it from its shop first."
+stockpile-no-hopper: "You can't extract items from this stockpile."
+
+break-confirm: "To break your shop, go to the shop menu:\n&e- &2&lChange Price & Products &6→ &c&lDelete Shop."
+break-operator-confirm: "To break this shop, &lShift + Right click &eon the shop and click: &c&lDelete Shop."
+
+shop-limit: "Shop limit per player reached: &6&l{limit}"
+pile-limit: "Earnings pile limit per player reached: &6&l{limit}"
+stockpile-limit: "Stockpile limit for this shop reached: &6&l{limit}"
+pile-shop-limit: "Connected shop limit for this pile reached: &6&l{limit}"
+
+stock-warning: "Your shop at &l{location} &cran out of stock."
+
+# Transactions
+buy-no-stock: "Shop is &lout of stock."
+buy-no-money: "You don't have enough money."
+
+shop-at: "&a&lAt: &f&l{location}"
+shop-at-custom: "&2&l{name}\n&a&lAt: &f&l{location}"
+shop-details: "&a&lAt: &f&l{location}\n&6Owner: &e&l{owner}"
+hover-various-products: "&a&nvarious products"
+hover-your-shop: "&a&nyour shop"
+buy-multiple: "You bought [hoverVariousProducts]&a from &l{seller} &afor &f{price}."
+buy-multiple-custom: "You bought [hoverVariousProducts]&a from [hoverCustomName] &afor &f{price}."
+buy-single: "You bought &f{product} &afrom &l{seller} &afor &f{price}."
+buy-single-custom: "You bought &f{product} &afrom [hoverCustomName] &afor &f{price}."
+sell-multiple: "&l{buyer} &abought [hoverVariousProducts]&a from [hoverYourShop]&a for &f{price}."
+sell-single: "&l{buyer} &abought &f{product} &afrom [hoverYourShop]&a for &f{price}."
+
+# Connections
+connect-stockpile: "&6<< &eClick a &lchest &eto add a stockpile &6>>"
+connect-earnings: "&6<< &eClick an &lender chest &eto add an earnings pile &6>>"
+connect-shop: "&6<< &eClick a &lshop &eto add it to the earnings pile &6>>"
+
+connector-stockpile: "Connected &lstockpile."
+connector-earnings: "Connected &learnings pile."
+connector-shop: "Connected &lshop &ato earnings pile."
+connector-cancel: "Cancelled connection."
+connector-invalid: "You can't connect to this block."
+
+connector-remove-stockpile: "Disconnected &lstockpile."
+connector-remove-earnings: "Disconnected &learnings pile."
+connector-remove-shop: "Disconnected &lshop &efrom earnings pile."
+
+clear-stockpiles: "Disconnected &lall stockpiles &efrom your shop."
+
+# Menu Interactions
+collect-no-earnings: "You don't have any earnings at this shop."
+collect-earnings: "You collected &l{earnings} &afrom this shop."
+collect-pile-earnings: "You collected &l{earnings} &afrom your shop at: &f&l{location}."
+collect-pile-no-earnings: "You don't have any earnings at your connected shops."
+
+create-double-chest: "You can't set up a shop on a double chest."
+create-not-empty: "Container is not empty."
+create-shop-exist: "There is already a shop here."
+create-invalid: "Please check price and product(s)."
+create-shop: "Shop created successfully."
+
+change-shop: "Saved changes to price and product(s)."
+delete-shop: "Shop &ldeleted."
+
+custom-name-type: "You have &l10 seconds &eto type a new custom name for your shop in the chat:"
+custom-name-set: "Set your shop's custom name to: &f&l{name}"
+custom-name-cancel: "Custom name selection cancelled."
+custom-name-remove: "Removed your shop's custom name."
+custom-name-invalid: "Custom name is too long."
+
+sale-text-type: "You have &l10 seconds &eto type a sale text for your shop in the chat:"
+sale-text-set: "Set your shop's sale text to: &f&l{name}"
+sale-text-cancel: "Sale text selection cancelled."
+sale-text-remove: "Removed your shop's sale text."
+sale-text-invalid: "Sale text is too long."
+
+not-block: "Please put a valid block."
+glass-not-glass: "Please put a valid glass block."
+glass-change-glass: "Glass color changed."
+glass-change-base: "Base block changed."
+
+frame-add-frame: "Frame material set."
+frame-remove-frame: "Frame removed."
+
+block-change: "Shop block changed to: &f&l{block}"
+
+display-clear: "Cleared shop display."
+
+display-glass-build: "Glass display built."
+display-glass-invalid-block: "You can't add a glass display when there is a block above the shop."
+display-glass-invalid-light: "You can't add light when there is a block above the shop."
+
+display-frame-build: "Frame display built."
+display-frame-invalid-chest: "You can't add a frame display when the shop block is a chest."
+
+# Menu titles
+menu-change-shop: "    &8&lPrice &6&l|&2&l Save &6&l| &8&lProduct"
+menu-create-shop: "  &8&lPrice&6&l | &2&lCreate&6&l | &8&lProduct"
+menu-shop-open: "&2&l⚒ Shop open"
+menu-shop-closed: "&c&l⚒ Shop out of stock"
+menu-customize: "&8&l🖌 Customize Shop"
+menu-buy: "{1}$ {2}&l{player}{1}'s Shop"
+menu-buy-custom: "{1}$ {2}&l{name}"
+menu-stock-chest: "&8📦 Stock Chest"
+menu-settings: "&8🛠 &lSettings"
+menu-earnings: "&5🔌 &lEarnings Pile"
+menu-delete: "&4🗑 &l{owner}&4's Shop"
+menu-stockpile: "&8📦 Stockpile for: &l{location}"
+menu-color: "&8&l🖌 Theme & Sound"
+
+# Buttons
+button-back: "&f◀ &lBACK"
+button-back-lore-1: "&7Go back to the previous menu."
+
+# Create Menu
+button-price: "&lPRICE"
+button-price-lore-1: "&7Put your price for the product(s) here."
+
+button-product: "&lPRODUCT"
+button-product-lore-1: "&7Put the product(s) you want to sell here."
+
+button-create-shop: "&a⚒ &lCREATE SHOP"
+button-create-shop-lore-1: "&2Click to create a shop."
+
+# Change Menu
+button-save-changes: "&a⚒ &lSAVE CHANGES"
+button-save-changes-lore-1: "&2Click to save changes made to the price and product(s)."
+
+button-delete-shop: "&4❌ &lDELETE SHOP"
+button-delete-shop-lore-1: "&c&lThis is &nnot reversible."
+button-delete-shop-lore-2: "&cClick to delete this shop."
+
+button-delete-redirect: "&4❌ &lDELETE SHOP"
+button-delete-redirect-lore-1: "&cClick to delete this shop."
+
+# Edit Menu
+button-change-shop: "&2🔀 &lCHANGE PRICE AND PRODUCTS"
+button-change-shop-lore-1: "&aClick to change or see the price and product(s)"
+button-change-shop-lore-2: "&ayou're selling at this shop."
+
+button-collect: "&9💰 &lCOLLECT EARNINGS"
+button-collect-lore-1: "&6&lEarnings:&a&l {earnings}"
+button-collect-lore-2: "&bClick to collect your earnings at this shop."
+button-none: "&c&lNone"
+
+button-stock-chest: "&6🧰 &lSTOCK CHEST"
+button-stock-chest-lore-1: "&eClick to stock the shop's internal storage."
+button-stock-chest-lore-2: "&6&oTip: &e&oYou can use this if you don't"
+button-stock-chest-lore-3: "&e&owant to add a stockpile"
+
+button-settings: "&8🛠 &lSETTINGS"
+button-settings-lore-1: "&7Click to change shop settings."
+
+button-customize: "🖌 CUSTOMIZE SHOP"
+button-customize-lore-1: "&8Click to customize this shop."
+
+button-connect-stock: "&8🔗 &lCONNECT STOCKPILE"
+button-connect-stock-lore-1: "&7Click to connect/disconnect a stockpile."
+button-connect-stock-lore-2: "&8&oTip: &7&oYou can click on an empty spot"
+button-connect-stock-lore-3: "&7&oto cancel the selection."
+
+button-connect-earnings: "&5🔌 &lCONNECT EARNINGS PILE"
+button-connect-earnings-lore-1: "&dClick to connect/disconnect an earnings pile."
+button-connect-earnings-lore-2: "&5&oTip: &d&oYou can click on an empty spot"
+button-connect-earnings-lore-3: "&d&oto cancel the selection."
+
+# Buy Menu
+button-buy: "&a$ &lBUY"
+button-buy-lore-1: "&6&lFor: &f&l{price}"
+button-buy-lore-2: "&2&lFrom: &a{player}"
+
+button-out-of-stock: "&4❌ &lOUT OF STOCK"
+button-out-of-stock-lore-1: "&cThis shop is out of stock."
+
+# Customize Menu
+button-color: "🖌 CHANGE THEME"
+button-color-selected: "&e&l⭐ SELECTED ⭐"
+button-color-lore-1: "&8Click to change the background theme."
+
+button-theme: "&6🛠 &f&lTHEME & SOUND SETTINGS"
+button-theme-lore-1: "&8Click to change the background theme"
+button-theme-lore-2: "&8or the buy sound."
+
+button-sound: "&3🎵 &f&lCHANGE BUY SOUND"
+button-sound-selected: "&e&l⭐ SELECTED ⭐"
+button-sound-lore-1: "&8Click to change the buy sound."
+
+button-change-block: "&6🧰 &f&lCHANGE SHOP BLOCK"
+button-change-block-lore-1: "&7Put a block here to change the shop block."
+button-change-block-lore-2: "&f&oTip: &7&oThe block will be placed based on"
+button-change-block-lore-3: "&7&othe direction you're facing."
+
+button-clear-display: "&4❌ &lCLEAR DISPLAY"
+button-clear-display-lore-1: "&cClick to remove the shop display."
+
+button-add-custom-name: "&6📖 &f&lSET SHOP NAME"
+button-add-custom-name-lore-1: "&7Click to add a custom name to this shop."
+button-add-custom-name-lore-2: "&7This will be displayed in the buy screen."
+
+button-remove-custom-name: "&6📖 &f&lRESET SHOP NAME"
+button-remove-custom-name-lore-1: "&7Click to remove this shop's custom name."
+button-remove-custom-name-lore-2: "&7Your username will be displayed."
+
+button-glass-display: "&6🪟 &f&lBUILD GLASS DISPLAY"
+button-glass-display-lore-1: "&7Click to build a glass display on this shop."
+
+button-display-change-glass: "&6🪟 &f&lCHANGE GLASS"
+button-display-change-glass-lore-1: "&7Put a glass block here to change the glass color."
+
+button-display-change-base: "&6🪟 &f&lCHANGE BASE"
+button-display-change-base-lore-1: "&7Put a block here to change the base."
+
+button-display-add-light: "&6🪟 &f&lADD LIGHT"
+button-display-add-light-lore-1: "&7Click to add a light to the display."
+
+button-display-remove-light: "&6🪟 &f&lREMOVE LIGHT"
+button-display-remove-light-lore-1: "&7Click to remove the light from the display."
+
+button-display-add-sale: "&6📖 &f&lADD SALE TEXT"
+button-display-add-sale-lore-1: "&7Click to add a sale text to the display."
+
+button-display-remove-sale: "&6📖 &f&lREMOVE SALE TEXT"
+button-display-remove-sale-lore-1: "&7Click to remove the sale text from the display."
+
+button-frame-display: "&6🖼 &f&lBUILD FRAME DISPLAY"
+button-frame-display-lore-1: "&7Click to build a frame display on this shop."
+button-frame-display-lore-2: "&f&oTip: &7&oIt will be built based on the direction"
+button-frame-display-lore-3: "&7&oyou're facing."
+
+button-display-add-frame: "&6🖼 &f&lADD FRAME"
+button-display-add-frame-lore-1: "&7Put a block here to add a frame."
+
+button-display-remove-frame: "&6🖼 &f&lREMOVE FRAME"
+button-display-remove-frame-lore-1: "&7Click to remove the frame."
+
+button-display-move-to-top: "&6🖼 &f&lMOVE TO TOP"
+button-display-move-to-top-lore-1: "&7Click to move the item to the top of the block."
+
+# Earnings Menu
+button-pile-collect: "&9💰 &lCOLLECT EARNINGS"
+button-pile-collect-lore-1: "&bClick to collect your earnings from all shops"
+button-pile-collect-lore-2: "&bconnected to this earnings pile."
+
+button-connect-shop: "&8🔌 &lCONNECT SHOP"
+button-connect-shop-lore-1: "&7Click to connect/disconnect a shop to this earnings pile."
+button-connect-shop-lore-2: "&8&oTip: &7&oAlready connected shops"
+button-connect-shop-lore-3: "&7&oare marked with blue."
+
+# Settings Menu
+button-notifications-enabled: "&2🔊 &lBUY NOTIFICATIONS: &a&lENABLED"
+button-notifications-disabled: "&2🔇 &lBUY NOTIFICATIONS: &c&lDISABLED"
+button-notifications-enabled-lore-1: "&8Click to enable/disable notifications"
+button-notifications-enabled-lore-2: "&8for when someone buys from your shop."
+
+button-stock-warning-enabled: "&6🔊 &lSTOCK WARNING: &a&lENABLED"
+button-stock-warning-disabled: "&6🔇 &lSTOCK WARNING: &c&lDISABLED"
+button-stock-warning-enabled-lore-1: "&8Click to enable/disable stock warnings"
+button-stock-warning-enabled-lore-2: "&8for when your shop runs out of stock."
+
+button-clear-stockpiles: "&c🔗 &lDISCONNECT ALL STOCKPILES"
+button-clear-stockpiles-lore-1: "&8Click to disconnect &nall stockpiles"
+button-clear-stockpiles-lore-2: "&8from your shop."
+
+button-unlimited-enabled: "&6🔓 &lUNLIMITED STOCK: &a&lENABLED"
+button-unlimited-disabled: "&6🔒 &lUNLIMITED STOCK: &c&lDISABLED"
+button-unlimited-enabled-lore-1: "&c&oOnly visible to &ladmins!"
+button-unlimited-enabled-lore-2: "&e&oYou won't collect any earnings or receive buy"
+button-unlimited-enabled-lore-3: "&e&onotifications when unlimited stock is enabled."
+
+blank: "&7x"
