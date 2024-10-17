@@ -83,7 +83,6 @@ public final class Main extends JavaPlugin {
                 menuListener,
                 connectorManager,
                 chatInputListener,
-                new ChatEvent(),
                 new ShopInteractEvent(),
                 new PileInteractEvent(),
                 new PileBreakEvent(),
