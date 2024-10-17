@@ -1,0 +1,54 @@
+#########################################################
+# ClickShop Settings
+# NOTE: RELOAD/RESTART SERVER FOR CHANGES TO TAKE EFFECT
+#########################################################
+config-version: 1
+messages-version: 1
+
+# Currently supported languages: en_US, de_DE, tr_TR
+language: en_US
+
+# Whether to check for updates on server startup.
+# Recommended.
+check-update: true
+
+# Whether to protect stockpiles.
+# Stockpiles can't be opened except for its owner when this setting is enabled.
+# Players with the permission "clickshop.bypass-stockpile" can still open all stockpiles.
+protect-stockpiles: true
+
+# Impacts the visibility range of shop displays.
+# Default: 2
+display-view-range: 2
+
+# If this setting is enabled, earnings at a shop will be collected by the deleter
+# when someone with the permission "clickshop.delete" deletes the shop.
+operator-delete-shop-collect: false
+
+# Whether to visualize tethers (ropes) whilst connecting stockpiles/earnings piles.
+visualize-tethers: true
+# Max distance between shops and stockpiles/earnings piles.
+# This behaves slightly differently if "visualize-tethers" is disabled.
+# Default: 100
+max-connection-distance: 100
+
+# Limits
+shop-limit-per-player: 30
+stockpile-limit-per-shop: 10
+
+earnings-pile-limit-per-player: 10
+shop-limit-per-earnings-pile: 10
+
+# Whether to allow pistons to move shop blocks.
+# When a piston moves a shop block, the shop might become invisible and unable to be interacted with until
+# there is a block again. This setting *might* cause lag if you have a lot of pistons running in your server.
+block-piston: true
+
+# WARNING: DO NOT TURN THIS SETTING ON UNLESS YOU KNOW WHAT YOU'RE DOING!
+# This is used for resynchronizing the "data.yml" file and the files in the "shops" folder.
+# Only use this in extreme situations where the data.yml file is corrupted.
+# IT WILL BE TURNED OFF AUTOMATICALLY AFTER THE PLUGIN IS RUN ONCE WITH THIS SETTING TURNED ON.
+# RESTART ONCE AFTER RUNNING THE SERVER WITH THIS SETTING ON.
+recover-shop-files: false
+
+
