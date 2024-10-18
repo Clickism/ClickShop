@@ -23,7 +23,7 @@ public class UpdateChecker {
     public void checkVersion(final Consumer<String> consumer) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try (
-                    InputStream is = new URL(API_URL + this.resourceId + "/~").openStream();
+                    InputStream is = new URL(API_URL + this.resourceId).openStream();
                     Scanner scanner = new Scanner(is)
             ) {
                 if (scanner.hasNext()) {

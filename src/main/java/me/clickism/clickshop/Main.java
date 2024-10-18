@@ -51,14 +51,16 @@ public final class Main extends JavaPlugin {
 
         // Check for updates
         new UpdateChecker(this, SPIGOT_ID).checkVersion(version -> {
-            Logger.info("New version available: " + version);
-            MessageParametizer message = Message.UPDATE.parameterizer()
-                    .put("version", version);
-            Bukkit.getOnlinePlayers().forEach(player -> {
-                if (player.isOp()) {
-                    message.send(player);
-                }
-            });
+            if (!version.equals(getDescription().getVersion())) {
+                Logger.info("New version available: " + version);
+                MessageParametizer message = Message.UPDATE.parameterizer()
+                        .put("version", version);
+                Bukkit.getOnlinePlayers().forEach(player -> {
+                    if (player.isOp()) {
+                        message.send(player);
+                    }
+                });
+            }
         });
 
         getLogger().info("ClickShop activated.");
