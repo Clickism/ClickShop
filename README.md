@@ -1,7 +1,10 @@
+**WARNING:** Version 1.0 is not compatible with version 0.1! Before updating: back up and remove the folder “plugins/ClickShop”. All shop data will be lost, so collect your earnings and remove all shops in advance.
 
 ## What is ClickShop?
 - ClickShop is a *highly customizable* and easy to use **shop plugin**, made primarily for SMP servers.
 - **TRAILER:** https://www.youtube.com/watch?v=FcDirAUOClQ&ab_channel=Clickism
+![](https://i.imgur.com/YOQkkDi.png)
+
 ## Features
 - __**NEW in 1.0:**__
     - Multi-language support: English & German
@@ -102,7 +105,7 @@
 
 ### NEW: Sale Text
 - To add a sale text, first build a glass display then click **"Add Sale Text"** and enter your sale text in chat.
-![enter image description here](https://i.imgur.com/b7nUKZ5.jpeg)
+![](https://i.imgur.com/b7nUKZ5.jpeg)
 ### Frame displays
 - To add a frame display, click **"Customize Shop"** from the *main shop interface*, then:
    - You can click on **"Build Frame Display"** to create a simple frame display.
@@ -111,11 +114,11 @@
 
    - You can click on **"Add Frame"** with a block in your hand to add a custom outer frame to the frame display,
       ![](https://i.imgur.com/mhy47NA.jpeg)
-      ![enter image description here](https://i.imgur.com/DLW8pbe.jpeg)
+      ![](https://i.imgur.com/DLW8pbe.jpeg)
 ### NEW: Move To Top
 - You can now move your frame displays to the top!
 - Click **"Move To Top"** after building a frame display.
-![enter image description here](https://i.imgur.com/jeFOIyn.jpeg)
-![enter image description here](https://i.imgur.com/96LnEai.jpeg)
+![](https://i.imgur.com/jeFOIyn.jpeg)
+![](https://i.imgur.com/96LnEai.jpeg)
 ### Remove All Displays
 - Lastly, to remove all displays, click **"Customize Shop"** from the *main shop interface*, and click on **"Remove Display"**
