@@ -3,6 +3,7 @@
 ## What is ClickShop?
 - ClickShop is a *highly customizable* and easy to use **shop plugin**, made primarily for SMP servers.
 - **TRAILER:** https://www.youtube.com/watch?v=FcDirAUOClQ&ab_channel=Clickism
+
 ![](https://i.imgur.com/YOQkkDi.png)
 
 ## Features
