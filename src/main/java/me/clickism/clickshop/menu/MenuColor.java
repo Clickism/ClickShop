@@ -85,6 +85,10 @@ public enum MenuColor {
         return primaryColor;
     }
 
+    public ChatColor getPrimaryColorFilteredGreen() {
+        return primaryColor == ChatColor.GREEN ? ChatColor.DARK_GREEN : primaryColor;
+    }
+
     public ChatColor getSecondaryColor() {
         return secondaryColor;
     }

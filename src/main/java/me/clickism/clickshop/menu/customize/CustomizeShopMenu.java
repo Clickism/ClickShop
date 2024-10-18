@@ -11,34 +11,35 @@ import org.bukkit.entity.Player;
 public class CustomizeShopMenu extends ShopMenu {
 
     public CustomizeShopMenu(Player player, ItemShop shop) {
-        super(player, shop, 45, new ClickHandler(), Message.MENU_CUSTOMIZE);
+        super(player, shop, 45, new ClickHandler(),
+                shop.getColor().getPrimaryColorFilteredGreen() + Message.MENU_CUSTOMIZE.toString());
     }
 
     @Override
     protected void setupButtons() {
         ItemShop shop = getShop();
 
-        addButton(new ColorMenuButton(19 - 9, shop));
-        addButton(new ChangeBlockButton(28 - 9, shop));
-        addButton(new CustomNameButton(37 - 9, shop));
+        addButton(new ColorMenuButton(10, shop));
+        addButton(new ChangeBlockButton(19, shop));
+        addButton(new CustomNameButton(28, shop));
 
-        addButton(new BuildGlassDisplayButton(25 - 9, shop));
-        addButton(new BuildFrameDisplayButton(34 - 9, shop));
-        addButton(new ClearDisplayButton(43 - 9, shop));
+        addButton(new BuildGlassDisplayButton(16, shop));
+        addButton(new BuildFrameDisplayButton(25, shop));
+        addButton(new ClearDisplayButton(34, shop));
 
         addButton(new BackButton(36, new EditShopMenu(getPlayer(), shop)));
 
         switch (shop.getDisplayType()) {
             case GLASS:
-                addButton(new DisplayChangeBaseButton(24 - 9, shop));
-                addButton(new DisplayChangeGlassButton(23 - 9, shop));
-                addButton(new DisplayLightButton(22 - 9, shop));
-                addButton(new DisplaySaleTextButton(21 - 9, shop));
+                addButton(new DisplayChangeBaseButton(15, shop));
+                addButton(new DisplayChangeGlassButton(14, shop));
+                addButton(new DisplayLightButton(13, shop));
+                addButton(new DisplaySaleTextButton(12, shop));
                 break;
             case FRAME:
-                addButton(new DisplayMoveToTopButton(33 - 9, shop));
-                addButton(new DisplayAddFrameButton(32 - 9, shop));
-                addButton(new DisplayRemoveFrameButton(31 - 9, shop));
+                addButton(new DisplayMoveToTopButton(24, shop));
+                addButton(new DisplayAddFrameButton(23, shop));
+                addButton(new DisplayRemoveFrameButton(22, shop));
                 break;
         }
     }

@@ -13,7 +13,8 @@ import org.bukkit.entity.Player;
 public class ColorMenu extends ShopMenu {
 
     public ColorMenu(Player player, ItemShop shop) {
-        super(player, shop, 45, new ClickHandler(), Message.MENU_COLOR);
+        super(player, shop, 45, new ClickHandler(),
+                shop.getColor().getPrimaryColorFilteredGreen() + Message.MENU_COLOR.toString());
     }
 
     @Override
