@@ -24,8 +24,7 @@ public class StockpileConnector extends Connector {
     public void handleConnection(Location target) {
         Player player = getPlayer();
         Material mat = target.getBlock().getType();
-        if (shop == null || ItemShop.get(target) != null || (mat != Material.CHEST && mat != Material.BARREL) ||
-                Main.getMain().getShopManager().getStockpileOwner(target) != null) {
+        if (shop == null || ItemShop.get(target) != null || (mat != Material.CHEST && mat != Material.BARREL)) {
             Message.CONNECTOR_INVALID.send(player);
             return;
         }
@@ -35,6 +34,11 @@ public class StockpileConnector extends Connector {
             Message.CONNECTOR_REMOVE_STOCKPILE.sendSilently(player);
             disconnectEffect(player);
         } else {
+            if (Main.getMain().getShopManager().getStockpileOwner(target) != null) {
+                // Stockpile already exists
+                Message.CONNECTOR_INVALID.send(player);
+                return;
+            }
             int maxStockPileCount = Setting.STOCKPILE_LIMIT_PER_SHOP.getInt();
             int stockPileCount = shop.getStockpileSet().size();
             if (stockPileCount >= maxStockPileCount) {
