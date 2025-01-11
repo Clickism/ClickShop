@@ -1,5 +1,5 @@
 name: ClickShop
-version: '${project.version}'
+version: '${version}'
 main: me.clickism.clickshop.Main
 api-version: '1.20'
 authors: [ Clickism ]
