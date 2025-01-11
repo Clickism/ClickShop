@@ -25,6 +25,9 @@ public class ShopCreateEvent implements Listener {
         Player player = event.getPlayer();
         Location location = block.getLocation();
 
+        if (player.isSneaking()) {
+            return; //Ignore if sneaking
+        }
         if (ItemShop.get(location) != null) {
             return; //Ignore if shop
         }
